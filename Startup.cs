@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using WebApplication1.Models;
 
 namespace WebApplication1
 {
@@ -28,6 +29,8 @@ namespace WebApplication1
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
+
+                var bd = new DataBase();
             });
         }
     }

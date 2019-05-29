@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Models;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(DataBase))]
-    partial class DataBaseModelSnapshot : ModelSnapshot
+    [Migration("20190529211839_AddedPerson")]
+    partial class AddedPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,14 +40,6 @@ namespace WebApplication1.Migrations
                     b.HasIndex("OwnerIdOwner");
 
                     b.ToTable("Animals");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 0,
-                            Name = "test"
-                        });
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Owner", b =>
@@ -83,28 +77,11 @@ namespace WebApplication1.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Person");
                 });
 
-            modelBuilder.Entity("WebApplication1.Studies", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Studies");
-                });
-
             modelBuilder.Entity("WebApplication1.Models.Student", b =>
                 {
                     b.HasBaseType("WebApplication1.Models.Person");
 
                     b.Property<string>("IndexNumber");
-
-                    b.Property<int?>("StudiesId");
-
-                    b.HasIndex("StudiesId");
 
                     b.HasDiscriminator().HasValue("Student");
                 });
@@ -114,13 +91,6 @@ namespace WebApplication1.Migrations
                     b.HasOne("WebApplication1.Models.Owner", "Owner")
                         .WithMany("Animals")
                         .HasForeignKey("OwnerIdOwner");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.Student", b =>
-                {
-                    b.HasOne("WebApplication1.Studies")
-                        .WithMany("Students")
-                        .HasForeignKey("StudiesId");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,5 +14,22 @@ namespace WebApplication1.Models
             base.OnConfiguring(optionsBuilder);
         }
         public DbSet<Animal> Animals {get; set;}
+        public DbSet<Owner> Owners {get; set;}
+        public DbSet<Person> Persons {get; set;}
+        public DbSet<Student> Students  {get; set;}
+        public DbSet<Studies> Studies  {get; set;}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // modelBuilder.Entity<Animal>().Property(a => a.Name)
+            //    .IsRequired();
+            modelBuilder.Entity<Animal>().HasData(
+                new Animal {  Id=1, Name="test"}
+                );
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
+
+     
 }
